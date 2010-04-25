@@ -1,12 +1,28 @@
 NAME
-    Dancer::Plugin::I18n -
+    Dancer::Plugin::I18n - Intenationalization for Dancer
 
 SYNOPSIS
-      use Dancer::Plugin::I18n;
+        package myapp::I18N::fr;
+        use base 'myapp::I18N';
+        our %Lexicon = ( hello => 'bonjour' );
+        1;
+
+        package myapp;
+        use Dancer;
+        use Dancer::Plugin::I18n;
+        get '/' => sub { template 'index' };
+
+        # index.tt
+        hello in <% languages %> => <% l('hello') %>
+        # or
+        <% languages('fr') %>This is an <% l('hello') %>
 
 DESCRIPTION
-    Dancer::Plugin::I18n is
+    Dancer::Plugin::I18n add Locale::Maketext to your Dancer application
 
+METHODS
+  languages
+  l
 AUTHOR
     franck cuny <franck@lumberjaph.net>
 
