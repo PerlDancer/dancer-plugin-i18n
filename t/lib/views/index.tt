@@ -1,0 +1,3 @@
+first we got <% l('hello') %>
+<% languages('de') %>
+then we have <% l('hello') %>
