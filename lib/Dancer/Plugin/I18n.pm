@@ -21,6 +21,7 @@ add_hook(
                 scalar $request->header('Accept-Language')
             )
         );
+        # FIXME what's the best method to get the application name ??
         my $app = "TestApp";
         $i18n_package = $app."::I18N";
         eval "package $i18n_package; use base 'Locale::Maketext'; 1;";
