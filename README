@@ -1,0 +1,17 @@
+NAME
+    Dancer::Plugin::I18n -
+
+SYNOPSIS
+      use Dancer::Plugin::I18n;
+
+DESCRIPTION
+    Dancer::Plugin::I18n is
+
+AUTHOR
+    franck cuny <franck@lumberjaph.net>
+
+SEE ALSO
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
