@@ -2,7 +2,9 @@ package Dancer::Plugin::I18n;
 
 use strict;
 use warnings;
+
 use Dancer::Plugin;
+use Dancer ':syntax';
 
 use I18N::LangTags;
 use I18N::LangTags::Detect;
@@ -13,17 +15,21 @@ my @languages;
 my $i18n_package;
 
 add_hook(
-    before_dispatch => sub {
-        my $request = shift;
+    before => sub {
+        my $request = request;
         @languages = ('en');
-        push @languages, I18N::LangTags::implicate_supers(
+        push @languages,
+          I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs(
-                scalar $request->header('Accept-Language')
+                scalar $request->accept_language
             )
-        );
-        # FIXME what's the best method to get the application name ??
-        my $app = "TestApp";
-        $i18n_package = $app."::I18N";
+          );
+
+        my $app = setting('appname');
+        if (!$app) {
+            die "Impossible to find your application name; please set the appname in your configuration";
+        }
+        $i18n_package = $app . "::I18N";
         eval "package $i18n_package; use base 'Locale::Maketext'; 1;";
         die "Impossible to load I18N plugin : $@" if $@;
     }
@@ -31,7 +37,7 @@ add_hook(
 
 add_hook(
     before_template => sub {
-        my ( $view, $tokens ) = @_;
+        my $tokens = shift;
         $tokens->{l}         = sub { localize(@_) };
         $tokens->{languages} = sub { languages(@_) };
     },
@@ -48,9 +54,7 @@ sub languages {
 }
 
 sub localize {
-    if ( $i18n_package && ( my $h = $i18n_package->get_handle(@languages) ) )
-    {
-
+    if ($i18n_package && (my $h = $i18n_package->get_handle(@languages))) {
         return $h->maketext(@_);
     }
     else {
