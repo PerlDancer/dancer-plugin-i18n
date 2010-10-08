@@ -8,6 +8,7 @@ all_from 'lib/Dancer/Plugin/I18n.pm';
 requires 'Dancer';
 requires 'I18N::LangTags';
 requires 'I18N::LangTags::Detect';
+requires 'Locale::Maketext';
 
 tests 't/*.t';
 
