@@ -29,8 +29,7 @@ Test::TCP::test_tcp(
     server => sub {
         use t::lib::TestApp;
         my $port = shift;
-        setting apphandler => 'PSGI';
-        setting appname    => 'TestApp';
+        setting appname => 'TestApp';
         setting template   => 'template_toolkit';
         Dancer::Config->load;
         Plack::Loader->auto( port => $port )->run($app);

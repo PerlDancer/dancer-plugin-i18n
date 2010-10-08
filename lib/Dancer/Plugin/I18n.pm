@@ -38,22 +38,23 @@ add_hook(
 add_hook(
     before_template => sub {
         my $tokens = shift;
-        $tokens->{l}         = sub { localize(@_) };
-        $tokens->{languages} = sub { languages(@_) };
+        $tokens->{l}         = sub { _localize(@_) };
+        $tokens->{languages} = sub { _languages(@_) };
     },
 );
 
-register languages => sub { languages(@_); };
-register l         => sub { localize(@_); };
+register languages => sub { _languages(@_); };
+register l         => sub { _localize(@_); };
 
-sub languages {
+sub _languages {
     my @lang = shift;
+
     return $languages[0] unless @lang;
     unshift @languages, @lang;
     return;
 }
 
-sub localize {
+sub _localize {
     if ($i18n_package && (my $h = $i18n_package->get_handle(@languages))) {
         return $h->maketext(@_);
     }
