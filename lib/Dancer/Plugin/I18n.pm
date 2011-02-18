@@ -18,7 +18,7 @@ add_hook(
     before => sub {
         my $request = request;
         @languages = ('en');
-        push @languages,
+        unshift @languages,
           I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs(
                 scalar $request->accept_language
