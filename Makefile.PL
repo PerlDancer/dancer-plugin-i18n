@@ -1,4 +1,6 @@
 use inc::Module::Install;
+use Module::Install::Repository;
+use Module::Install::AuthorTests;
 name 'Dancer-Plugin-I18n';
 all_from 'lib/Dancer/Plugin/I18n.pm';
 #readme_from 'lib/Dancer/Plugin/I18n.pm';
