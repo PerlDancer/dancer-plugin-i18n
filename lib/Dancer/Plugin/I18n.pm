@@ -70,7 +70,7 @@ __END__
 
 =head1 NAME
 
-Dancer::Plugin::I18n - Intenationalization for Dancer
+Dancer::Plugin::I18n - Internationalisation for Dancer web apps
 
 =head1 SYNOPSIS
 
