@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 use HTTP::Request;
 use LWP::UserAgent;
@@ -12,7 +12,7 @@ use Test::TCP;
 
 my $app = sub {
     my $env     = shift;
-    my $request = Dancer::Request->new($env);
+    my $request = Dancer::Request->new( env => $env );
     Dancer->dance($request);
 };
 
@@ -23,6 +23,7 @@ Test::TCP::test_tcp(
         $req->header( 'Accept-Language' => 'fr' );
         my $ua  = LWP::UserAgent->new;
         my $res = $ua->request($req);
+        is $res->code => 200 or diag 'oops: ' + $res->content;
         like $res->content, qr/first we got bonjour/, 'french content';
         like $res->content, qr/then we have hallo/,   'german content';
     },
