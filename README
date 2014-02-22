@@ -1,5 +1,5 @@
 NAME
-    Dancer::Plugin::I18n - Intenationalization for Dancer
+    Dancer::Plugin::I18n - Internationalization for Dancer
 
 SYNOPSIS
         package myapp::I18N::fr;
